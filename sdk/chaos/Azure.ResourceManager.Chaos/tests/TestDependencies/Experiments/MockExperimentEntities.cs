@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Azure.Core;
 using Azure.ResourceManager.Chaos.Models;
 using Azure.ResourceManager.Models;
@@ -40,6 +41,13 @@ namespace Azure.ResourceManager.Chaos.Tests.TestDependencies.Experiments
             experimentData.Identity = new ManagedServiceIdentity(ManagedServiceIdentityType.SystemAssigned);
             experimentData.Tags.Add("key", "value");
             return experimentData;
+        }
+
+        public ChaosExperimentPatch GetSamplePatch()
+        {
+            var experimentPatchData = new ChaosExperimentPatch();
+            experimentPatchData.Tags.Add("key2", "value2");
+            return experimentPatchData;
         }
     }
 }

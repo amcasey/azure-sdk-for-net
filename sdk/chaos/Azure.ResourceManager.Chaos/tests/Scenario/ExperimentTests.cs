@@ -49,6 +49,18 @@ namespace Azure.ResourceManager.Chaos.Tests
 
         [TestCase, Order(2)]
         [RecordedTest]
+        public async Task Patch()
+        {
+            await this.ExperimentCollection.CreateOrUpdateAsync(WaitUntil.Completed, this.ExperimentName, this.MockExperimentEntities.GetVmssShutdownV2v0Experiment());
+            var resourceResponse = await this.ExperimentCollection.UpdateAsync(
+                WaitUntil.Completed,
+                this.ExperimentName,
+                this.MockExperimentEntities.GetSamplePatch());
+            Assert.AreEqual(this.ExperimentName, resourceResponse.Value.Data.Name);
+        }
+
+        [TestCase, Order(3)]
+        [RecordedTest]
         public async Task Get()
         {
             await this.ExperimentCollection.CreateOrUpdateAsync(WaitUntil.Completed, this.ExperimentName, this.MockExperimentEntities.GetVmssShutdownV2v0Experiment());
@@ -57,7 +69,7 @@ namespace Azure.ResourceManager.Chaos.Tests
             Assert.AreEqual(this.ExperimentName, getResourceResponse.Value.Data.Name);
         }
 
-        [TestCase, Order(3)]
+        [TestCase, Order(4)]
         [RecordedTest]
         public async Task List()
         {
@@ -65,7 +77,7 @@ namespace Azure.ResourceManager.Chaos.Tests
             Assert.True(experimentList.Any());
         }
 
-        [TestCase, Order(4)]
+        [TestCase, Order(5)]
         [RecordedTest]
         public async Task Delete()
         {
@@ -82,7 +94,7 @@ namespace Azure.ResourceManager.Chaos.Tests
             Assert.AreEqual(false, existsResponse.Value);
         }
 
-        [TestCase, Order(5)]
+        [TestCase, Order(6)]
         [RecordedTest]
         public async Task StartAndCheckExecutionStatus()
         {
@@ -99,7 +111,7 @@ namespace Azure.ResourceManager.Chaos.Tests
             Assert.AreEqual(200, executionResponse.GetRawResponse().Status);
         }
 
-        [TestCase, Order(6)]
+        [TestCase, Order(7)]
         [RecordedTest]
         public async Task Cancel()
         {
