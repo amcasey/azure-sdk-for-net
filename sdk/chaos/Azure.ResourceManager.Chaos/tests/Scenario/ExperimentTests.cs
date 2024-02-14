@@ -17,7 +17,7 @@ namespace Azure.ResourceManager.Chaos.Tests
     public class ExperimentTests : ChaosManagementTestBase
     {
         public ExperimentTests(bool isAsync)
-            : base(isAsync, RecordedTestMode.Record)
+            : base(isAsync, RecordedTestMode.Playback)
         {
         }
 
@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.Chaos.Tests
 
         [TestCase, Order(2)]
         [RecordedTest]
-        public async Task Patch()
+        public async Task Update()
         {
             await this.ExperimentCollection.CreateOrUpdateAsync(WaitUntil.Completed, this.ExperimentName, this.MockExperimentEntities.GetVmssShutdownV2v0Experiment());
             var resourceResponse = await this.ExperimentCollection.UpdateAsync(

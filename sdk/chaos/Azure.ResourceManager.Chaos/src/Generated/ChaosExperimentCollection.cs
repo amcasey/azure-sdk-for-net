@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.Chaos
         }
 
         /// <summary>
-        /// Patch an Experiment resource.
+        /// Update an Experiment resource.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -176,21 +176,21 @@ namespace Azure.ResourceManager.Chaos
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="experimentName"> String that represents a Experiment resource name. </param>
-        /// <param name="patchData"> Experiment resource patch data. </param>
+        /// <param name="data"> Experiment resource to be created or updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="experimentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="experimentName"/> or <paramref name="patchData"/> is null. </exception>
-        public virtual async Task<ArmOperation<ChaosExperimentResource>> UpdateAsync(WaitUntil waitUntil, string experimentName, ChaosExperimentPatch patchData, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="experimentName"/> or <paramref name="data"/> is null. </exception>
+        public virtual async Task<ArmOperation<ChaosExperimentResource>> UpdateAsync(WaitUntil waitUntil, string experimentName, ChaosExperimentPatch data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(experimentName, nameof(experimentName));
-            Argument.AssertNotNull(patchData, nameof(patchData));
+            Argument.AssertNotNull(data, nameof(data));
 
             using var scope = _chaosExperimentExperimentsClientDiagnostics.CreateScope("ChaosExperimentCollection.Update");
             scope.Start();
             try
             {
-                var response = await _chaosExperimentExperimentsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, experimentName, patchData).ConfigureAwait(false);
-                var operation = new ChaosArmOperation<ChaosExperimentResource>(new ChaosExperimentOperationSource(Client), _chaosExperimentExperimentsClientDiagnostics, Pipeline, _chaosExperimentExperimentsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, experimentName, patchData).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = await _chaosExperimentExperimentsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, experimentName, data, cancellationToken).ConfigureAwait(false);
+                var operation = new ChaosArmOperation<ChaosExperimentResource>(new ChaosExperimentOperationSource(Client), _chaosExperimentExperimentsClientDiagnostics, Pipeline, _chaosExperimentExperimentsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, experimentName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -203,7 +203,7 @@ namespace Azure.ResourceManager.Chaos
         }
 
         /// <summary>
-        /// Patch Experiment resource.
+        /// Update an Experiment resource.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -225,21 +225,21 @@ namespace Azure.ResourceManager.Chaos
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="experimentName"> String that represents a Experiment resource name. </param>
-        /// <param name="patchData"> Experiment resource patch data. </param>
+        /// <param name="data"> Experiment resource to be created or updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="experimentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="experimentName"/> or <paramref name="patchData"/> is null. </exception>
-        public virtual ArmOperation<ChaosExperimentResource> Update(WaitUntil waitUntil, string experimentName, ChaosExperimentPatch patchData, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="experimentName"/> or <paramref name="data"/> is null. </exception>
+        public virtual ArmOperation<ChaosExperimentResource> Update(WaitUntil waitUntil, string experimentName, ChaosExperimentPatch data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(experimentName, nameof(experimentName));
-            Argument.AssertNotNull(patchData, nameof(patchData));
+            Argument.AssertNotNull(data, nameof(data));
 
             using var scope = _chaosExperimentExperimentsClientDiagnostics.CreateScope("ChaosExperimentCollection.Update");
             scope.Start();
             try
             {
-                var response = _chaosExperimentExperimentsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, experimentName, patchData, cancellationToken);
-                var operation = new ChaosArmOperation<ChaosExperimentResource>(new ChaosExperimentOperationSource(Client), _chaosExperimentExperimentsClientDiagnostics, Pipeline, _chaosExperimentExperimentsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, experimentName, patchData).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = _chaosExperimentExperimentsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, experimentName, data, cancellationToken);
+                var operation = new ChaosArmOperation<ChaosExperimentResource>(new ChaosExperimentOperationSource(Client), _chaosExperimentExperimentsClientDiagnostics, Pipeline, _chaosExperimentExperimentsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, experimentName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
